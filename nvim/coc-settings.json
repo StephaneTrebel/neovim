@@ -1,0 +1,8 @@
+{
+    "markdownlint.config": {
+        "line-length": false
+    },
+    "tsserver.tsdk": "/home/strebel/.nvm/versions/node/v12.22.1/lib/node_modules/typescript/lib/",
+    "tsserver.npm": "/home/strebel/.nvm/versions/node/v12.22.1/bin/npm",
+    "tsserver.ignoreLocalTsserver": true
+}
