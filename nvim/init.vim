@@ -51,8 +51,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 " nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>rf <Plug>(coc-refactor)
+nmap <silent> gn <Plug>(coc-rename)
+nmap <silent> gf <Plug>(coc-refactor)
 
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -187,30 +187,35 @@ autocmd FileType * nmap <buffer> <LEADER>b ggVG=<CR>
 " Don't forget to install prettier globally (npm install -g prettier)
 autocmd FileType javascript nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.js Neoformat
-autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ babel\ --end-of-line\ lf
+autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript\ --stdin-filepath\ @%
 
 autocmd FileType json nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.json Neoformat
-autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json\ --end-of-line\ lf
+autocmd FileType json setlocal formatprg=prettier\ --parser\ json\ --stdin-filepath\ @%n
 
 
 autocmd FileType typescript* nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.ts Neoformat " Disabled because I find it cumbersome
-autocmd FileType typescript* setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --end-of-line\ lf
+autocmd FileType typescript* setlocal formatprg=prettier\ --parser\ typescript\ --stdin-filepath\ @%
 
 autocmd FileType html nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.html Neoformat
-autocmd FileType html setlocal formatprg=prettier\ --stdin\ --parser\ html\ --end-of-line\ lf
+" autocmd FileType html setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
+autocmd FileType html setlocal formatprg=npx\ html-beautify\ -A\ 'force-aligned'\ -n
+
+autocmd FileType svg nmap <buffer> <LEADER>b :Neoformat<CR>
+" autocmd BufWritePre *.svg Neoformat
+autocmd FileType svg setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
 
 autocmd FileType scss nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.scss Neoformat
-autocmd FileType scss setlocal formatprg=prettier\ --stdin\ --parser\ css\ --end-of-line\ lf
+autocmd FileType scss setlocal formatprg=prettier\ --parser\ css\ --stdin-filepath\ @%
 
 
 autocmd FileType yaml,yml nmap <buffer> <LEADER>b :Neoformat<CR>
 " autocmd BufWritePre *.yml Neoformat
 " autocmd BufWritePre *.yaml Neoformat
-autocmd FileType yaml,yml setlocal formatprg=prettier\ --stdin\ --parser\ yaml\ --end-of-line\ lf
+autocmd FileType yaml,yml setlocal formatprg=prettier\ --parser\ yaml\ --stdin-filepath\ @%
 
 autocmd FileType terraform nmap <buffer> <LEADER>b :TerraformFmt<CR>
 
@@ -226,7 +231,7 @@ set modelines=0
 " LEADER SHORTCUTS
 let mapleader = " "
 " Quit
-nnoremap <LEADER>q :q<CR>
+noremap <LEADER>q :bw<CR>
 " Select everything
 nnoremap <LEADER>v V`]
 " Clear search highlight
@@ -235,10 +240,12 @@ nnoremap <LEADER>, :noh<CR>
 nnoremap <LEADER>w :w<CR>
 " Toggle NERDTree panel
 nnoremap <LEADER>n :NERDTreeToggle<CR>
+nnoremap <LEADER>N :execute 'cd %:h' <bar> NERDTree<CR>
+" Alternate between two buffers
+nnoremap <LEADER>a :b#<CR>
+" The one, and only
+nnoremap <LEADER>f :FZF<CR>
 let NERDTreeShowHidden=1
-" If no file required at CLI invoke, open with NERDTree (no buffer will be
-" opened)
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeToggle | wincmd w | q | endif
 let NERDTreeShowLineNumbers=1
 let NERDTreeMinimalUI=1
 
@@ -249,9 +256,9 @@ let NERDTreeMinimalUI=1
 " I have not included HTML because I prefer Jade/Pug and since it's whitespace
 " based there's not much sense in having to beautify it I guess
 function! BeautifyVue()
-    setlocal formatprg=prettier\ --stdin\ --parser\ typescript\ --single-quote\ --trailing-comma\ all
+    setlocal formatprg=prettier\ --parser\ typescript\ --single-quote\ --trailing-comma\ all
     /<script.*>/+1,/<\/script>/-1:Neoformat
-    setlocal formatprg=prettier\ --stdin\ --parser\ postcss
+    setlocal formatprg=prettier\ --parser\ postcss
     /<style.*>/+1,/<\/style>/-1:Neoformat
     noh
 endfunction
@@ -263,8 +270,6 @@ nnoremap <leader>ev :vsplit ~/.vimrc<CR>
 " Refresh vim config from ~/.vimrc
 nnoremap <LEADER>sv :source ~/.vimrc<CR>
 
-" Append a semicolon and the end of current line
-nnoremap <LEADER>a A;<ESC>
 " Keep default register when pasting (send erased selection in black hole
 " register)
 vnoremap <LEADER>p "_dP
@@ -446,10 +451,6 @@ let g:EasyMotion_smartcase = 1
 
 let g:NERDSpaceDelims = 1
 
-" Open files of location/quickfix lists in new tabs instead of in the current
-" buffer
-set switchbuf+=newtab
-
 " Toggle paste mode. Useful when pasting in Windows environnements
 set pastetoggle=<F4>
 
@@ -473,7 +474,7 @@ function! ToggleHiddenAll()
     endif
 endfunction
 
-nnoremap <S-h> :call ToggleHiddenAll()<CR>
+nnoremap <LEADER><S-h> :call ToggleHiddenAll()<CR>
 
 " Enable spell checking
 autocmd FileType markdown setlocal spell spelllang=en
@@ -498,3 +499,60 @@ let g:vdebug_options = {
             \ 'debug_file': '~/vdebug.log',
             \ 'debug_file_level': 2,
             \}
+
+" Nvim only: create a dynamic split to view RegEx in real time
+set inccommand=nosplit
+
+" Set make command to "git diff" to help with rebases having conflicts
+set makeprg=git\ diff\ --name-only\ \\\|\ \sort\ -u
+set efm+=%f
+
+" Useful bindings for vimdiff git conflicts management
+function! MergeKeepLeft()
+	let lastsearch = @/
+	let @/ = '<<<<<<<'
+	execute "normal! ?\<cr>dd"
+
+	let @/ = '|||||||'
+	execute "normal! /\<cr>V"
+
+	let @/ = '>>>>>>>'
+	execute "normal! /\<cr>d"
+
+	let @/ = lastsearch
+endfunction
+
+function! MergeKeepBoth()
+	let lastsearch = @/
+	let @/ = '<<<<<<<'
+	execute "normal! ?\<cr>dd"
+
+	let @/ = '|||||||'
+	execute "normal! /\<cr>V"
+
+	let @/ = '======='
+	execute "normal! /\<cr>d"
+
+	let @/ = '>>>>>>>'
+	execute "normal! /\<cr>dd"
+
+	let @/ = lastsearch
+endfunction
+
+function! MergeKeepRight()
+	let lastsearch = @/
+	let @/ = '<<<<<<<'
+	execute "normal! ?\<cr>V"
+
+	let @/ = '======='
+	execute "normal! /\<cr>d"
+
+	let @/ = '>>>>>>>'
+	execute "normal! /\<cr>dd"
+
+	let @/ = lastsearch
+endfunction
+
+nnoremap <LEADER>a :<C-U>call MergeKeepLeft()<CR>
+nnoremap <LEADER>u :<C-U>call MergeKeepBoth()<CR>
+nnoremap <LEADER>i :<C-U>call MergeKeepRight()<CR>
