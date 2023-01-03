@@ -43,8 +43,6 @@ Plugin 'mustache/vim-mustache-handlebars'
 " Conquer of Code (Completion and LSP support)
 Plugin 'neoclide/coc.nvim'
 
-Plugin 'vim-vdebug/vdebug'
-
 nmap <silent> gi <Plug>(coc-codeaction-cursor)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -487,18 +485,6 @@ if executable("rg")
 endif
 
 syntax enable
-
-" TEMP APOLLO for vim-fubitive
-let g:fubitive_domain_pattern = 'src.tools.hermes.com'
-
-" Magento
-let g:vdebug_options = {
-            \ 'ide_key': 'PHPSTORM',
-            \ 'break_on_open': 1,
-						\ 'port': 9000,
-            \ 'debug_file': '~/vdebug.log',
-            \ 'debug_file_level': 2,
-            \}
 
 " Nvim only: create a dynamic split to view RegEx in real time
 set inccommand=nosplit
