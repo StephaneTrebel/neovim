@@ -15,7 +15,7 @@ help:
 .PHONY: add-nvim-conf
 #: Symlink nvim-conf
 add-nvim-conf:
-	ln -s $$(pwd)/nvim $(TARGET)
+	ln -s $$(pwd)/nvim $(TARGET)/.config/nvim
 
 .PHONY: install
 #: Install everything
