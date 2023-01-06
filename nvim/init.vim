@@ -9,7 +9,6 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Git Integration
 Plugin 'tpope/vim-fugitive'
-Plugin 'tommcdo/vim-fubitive'
 
 " Vim Session handling
 Plugin 'tpope/vim-obsession'
@@ -34,57 +33,11 @@ Plugin 'tpope/vim-surround'
 " Best status bar ever
 Plugin 'vim-airline/vim-airline'
 
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'digitaltoad/vim-pug'
-Plugin 'posva/vim-vue'
-Plugin 'wavded/vim-stylus'
-Plugin 'mustache/vim-mustache-handlebars'
-
 " Conquer of Code (Completion and LSP support)
 Plugin 'neoclide/coc.nvim'
 
-nmap <silent> gi <Plug>(coc-codeaction-cursor)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-" nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Symbol renaming.
-nmap <silent> gn <Plug>(coc-rename)
-nmap <silent> gf <Plug>(coc-refactor)
-
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" Go
+Plugin 'fatih/vim-go'
 
 " Ack support
 " Beware ! git.fsck might not like this plugin. Use manual install if needed:
@@ -107,12 +60,6 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" Syntax checker
-Plugin 'scrooloose/syntastic'
-
-" RobotFramework syntax support
-Plugin 'mfukar/robotframework-vim'
-
 " Javascript syntax highlighting
 Plugin 'pangloss/vim-javascript'
 Plugin 'othree/jsdoc-syntax.vim'
@@ -120,8 +67,6 @@ Plugin 'othree/jsdoc-syntax.vim'
 " PlantUML support
 Plugin 'aklt/plantuml-syntax'
 let g:plantuml_set_makeprg = 0
-" Compile to SVG with F5 and return immediately to vim
-autocmd FileType plantuml nmap <buffer> <F5> :silent !plantuml -tsvg %<CR>:redraw!<CR>
 
 " Notes plugin
 Plugin 'xolox/vim-notes'
@@ -144,6 +89,88 @@ Plugin 'Shougo/vimproc.vim'
 call vundle#end()
 filetype plugin indent on
 
+" CoC config
+nmap <silent> gi <Plug>(coc-codeaction-cursor)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Symbol renaming.
+nmap <silent> gn <Plug>(coc-rename)
+nmap <silent> gf <Plug>(coc-refactor)
+
+" Use tab for trigger completion with characters ahead and navigate
+" NOTE: There's always complete item selected by default, you may want to enable
+" no select by `"suggest.noselect": true` in your configuration file
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" LEADER SHORTCUTS
+let mapleader = " "
+" Quit
+noremap <LEADER>q :bw<CR>
+" Select everything
+nnoremap <LEADER>v V`]
+" Clear search highlight
+nnoremap <LEADER>, :noh<CR>
+" Save current buffer
+nnoremap <LEADER>w :w<CR>
+" Alternate between two buffers
+nnoremap <LEADER>a :b#<CR>
+" The one, and only
+nnoremap <LEADER>f :FZF<CR>
+
+" NERDTree config
+" Toggle NERDTree panel
+nnoremap <LEADER>n :NERDTreeToggle<CR>
+nnoremap <LEADER>N :execute 'cd %:h' <bar> NERDTree<CR>
+let NERDTreeShowHidden=1
+let NERDTreeShowLineNumbers=1
+let NERDTreeMinimalUI=1
+let g:NERDSpaceDelims = 1
+
+
 " Give more space for displaying messages.
 set cmdheight=2
 
@@ -158,115 +185,53 @@ set shortmess+=c
 " Activate FZF
 set rtp+=~/.fzf
 
-" Jenkinsfile support
-" If you have Jenkinsfile support but also have to handle «*.jenkinsfile»
-" files, this line is for you
-au BufNewFile,BufFilePre,BufRead *.jenkinsfile set filetype=Jenkinsfile
-
 " Markdown support
 " Treat *.md files as markdown syntax (default is modula2)
-" au BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh']
+" Enable spell checking
+autocmd FileType markdown setlocal spell spelllang=en
+autocmd FileType typescript setlocal spell spelllang=en
+" Remove wrapping for markdown (markdown interperters do it automatically for
+" display anyway
+autocmd FileType markdown setlocal tw=0
 
-" Treat *.tag files as jsp syntax (default is mason)
-au BufNewFile,BufFilePre,BufRead *.tag set filetype=jsp
-" Treat *.dockerfile files as dockerfile syntax
 au BufNewFile,BufFilePre,BufRead *.dockerfile set filetype=dockerfile
-
-
 au BufNewFile,BufFilePre,BufRead *.bashrc set filetype=sh
 au BufNewFile,BufFilePre,BufRead *.env.local set filetype=sh
-
-" Formatter conf
 
 " Default formatting = vim native indentation
 autocmd FileType * nmap <buffer> <LEADER>b ggVG=<CR>
 
 " Don't forget to install prettier globally (npm install -g prettier)
 autocmd FileType javascript nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.js Neoformat
 autocmd FileType javascript setlocal formatprg=prettier\ --parser\ typescript\ --stdin-filepath\ @%
 
 autocmd FileType json nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.json Neoformat
 autocmd FileType json setlocal formatprg=prettier\ --parser\ json\ --stdin-filepath\ @%n
 
-
 autocmd FileType typescript* nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.ts Neoformat " Disabled because I find it cumbersome
 autocmd FileType typescript* setlocal formatprg=prettier\ --parser\ typescript\ --stdin-filepath\ @%
 
 autocmd FileType html nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.html Neoformat
-" autocmd FileType html setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
 autocmd FileType html setlocal formatprg=npx\ html-beautify\ -A\ 'force-aligned'\ -n
 
 autocmd FileType svg nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.svg Neoformat
 autocmd FileType svg setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
 
 autocmd FileType scss nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.scss Neoformat
 autocmd FileType scss setlocal formatprg=prettier\ --parser\ css\ --stdin-filepath\ @%
 
+autocmd FileType go nmap <buffer> <LEADER>b :GoFmt<CR>
 
 autocmd FileType yaml,yml nmap <buffer> <LEADER>b :Neoformat<CR>
-" autocmd BufWritePre *.yml Neoformat
-" autocmd BufWritePre *.yaml Neoformat
 autocmd FileType yaml,yml setlocal formatprg=prettier\ --parser\ yaml\ --stdin-filepath\ @%
 
 autocmd FileType terraform nmap <buffer> <LEADER>b :TerraformFmt<CR>
 
 let g:neoformat_try_formatprg = 1
 
-" Remove wrapping for markdown (markdown interperters do it automatically for
-" display anyway
-autocmd FileType markdown setlocal tw=0
-
 " Security concerns and useless anyway
 set modelines=0
-
-" LEADER SHORTCUTS
-let mapleader = " "
-" Quit
-noremap <LEADER>q :bw<CR>
-" Select everything
-nnoremap <LEADER>v V`]
-" Clear search highlight
-nnoremap <LEADER>, :noh<CR>
-" Save current buffer
-nnoremap <LEADER>w :w<CR>
-" Toggle NERDTree panel
-nnoremap <LEADER>n :NERDTreeToggle<CR>
-nnoremap <LEADER>N :execute 'cd %:h' <bar> NERDTree<CR>
-" Alternate between two buffers
-nnoremap <LEADER>a :b#<CR>
-" The one, and only
-nnoremap <LEADER>f :FZF<CR>
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-let NERDTreeMinimalUI=1
-
-
-" Beautify vue SFC files:
-" * Beautify ts for the <script></script> region
-" * Beautify [s]css for the <style></style> region
-" I have not included HTML because I prefer Jade/Pug and since it's whitespace
-" based there's not much sense in having to beautify it I guess
-function! BeautifyVue()
-    setlocal formatprg=prettier\ --parser\ typescript\ --single-quote\ --trailing-comma\ all
-    /<script.*>/+1,/<\/script>/-1:Neoformat
-    setlocal formatprg=prettier\ --parser\ postcss
-    /<style.*>/+1,/<\/style>/-1:Neoformat
-    noh
-endfunction
-autocmd FileType vue nnoremap <LEADER>b :call BeautifyVue()<CR>
-" autocmd BufWritePre *.vue call BeautifyVue()
-
-" Edit vimrc in a vertical split
-nnoremap <leader>ev :vsplit ~/.vimrc<CR>
-" Refresh vim config from ~/.vimrc
-nnoremap <LEADER>sv :source ~/.vimrc<CR>
 
 " Keep default register when pasting (send erased selection in black hole
 " register)
@@ -348,26 +313,6 @@ set textwidth=0
 set formatoptions=qrn1
 set colorcolumn=85
 
-" Syntastic options
-" Customize status line with syntastic errors
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_mode_map = { "mode": "passive" }
-" You shouldn't use 'tsc' checker.
-let g:syntastic_typescript_checkers = ['tsuquyomi', 'tslint']
-let g:syntastic_typescript_tslint_args = "--project tslint.json"
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-autocmd FileType typescript nmap <buffer> <LEADER>c :SyntasticCheck<CR>
-autocmd FileType javascript nmap <buffer> <LEADER>c :YcmDiags<CR>
-" Navigate through errors
-autocmd FileType typescript nmap <buffer> ! :lnext<CR>
-autocmd FileType typescript nmap <buffer> <LEADER>! :lprevious<CR>
-
 " Colorscheme
 set t_Co=256
 colorscheme inkpot
@@ -447,8 +392,6 @@ nmap s <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 
-let g:NERDSpaceDelims = 1
-
 " Toggle paste mode. Useful when pasting in Windows environnements
 set pastetoggle=<F4>
 
@@ -474,9 +417,6 @@ endfunction
 
 nnoremap <LEADER><S-h> :call ToggleHiddenAll()<CR>
 
-" Enable spell checking
-autocmd FileType markdown setlocal spell spelllang=en
-autocmd FileType typescript setlocal spell spelllang=en
 
 " ripgrep support
 if executable("rg")
