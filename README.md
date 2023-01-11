@@ -9,14 +9,14 @@ My .nvim folder with every plugin I use and my own annotated init.vim file
 
 # Installation
 
-- Clone this repo anywhere (I use it as a submodule in my [init-environment repo](https://github.com/stephanetrebel/init-environment), for instance.
+- Clone this repo anywhere (I use it as a submodule in my [init-environment repo](https://github.com/stephanetrebel/init-environment), for instance).
 - Use GNU make:
 
 ```bash
 $ make install
 ```
 
-- For Typescript, install typescript globally (`npm install -g typescript`) so that Coc can use them. You can also rely on locally installed typescript but to benefit from all the tsserver API I find it better to consistently use a global one.
+- For Typescript, install typescript globally (`npm install -g typescript`) so that Coc can use it. You can also rely on a locally installed (project based) typescript but to benefit from all the tsserver API I find it better to consistently use a global one.
 - For Prettier automatic formatting, install prettier globally (`npm install -g prettier`)
 - Don't forget to review the init.vim file ! I took some time to comment why I added stuff here and there's a lot of little things so feel free to own the file. That's what Vim is about after all: owning your editor :)
 - Remember that `:help` is your friend. If you don't understand a setting, or a command, just `:help` it !
