@@ -94,6 +94,9 @@ Plugin 'hashivim/vim-terraform'
 " Async library for Vim (not required on Vim8 but required on Neovim ?)
 Plugin 'Shougo/vimproc.vim'
 
+" Easy HTML writing
+Plugin 'mattn/emmet-vim'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -490,3 +493,11 @@ endfunction
 nnoremap <LEADER>a :<C-U>call MergeKeepLeft()<CR>
 nnoremap <LEADER>u :<C-U>call MergeKeepBoth()<CR>
 nnoremap <LEADER>i :<C-U>call MergeKeepRight()<CR>
+
+" vim-emmet configuration
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
