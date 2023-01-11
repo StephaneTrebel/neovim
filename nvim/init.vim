@@ -10,6 +10,9 @@ Plugin 'VundleVim/Vundle.vim'
 " Git Integration
 Plugin 'tpope/vim-fugitive'
 
+" Advanced Vim Targets (/!\ Will override some basic ones)
+Plugin 'wellle/targets.vim'
+
 " Vim Session handling
 Plugin 'tpope/vim-obsession'
 
