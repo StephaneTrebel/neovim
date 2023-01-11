@@ -7,6 +7,11 @@ call vundle#begin(vundle_path)
 
 Plugin 'VundleVim/Vundle.vim'
 
+" Typescript syntax
+Plugin 'leafgarland/typescript-vim'
+" jsx/tsx syntax
+Plugin 'peitalin/vim-jsx-typescript'
+
 " Git Integration
 Plugin 'tpope/vim-fugitive'
 
