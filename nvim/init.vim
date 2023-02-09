@@ -235,6 +235,9 @@ autocmd FileType yaml,yml setlocal formatprg=prettier\ --parser\ yaml\ --stdin-f
 
 autocmd FileType terraform nmap <buffer> <LEADER>b :TerraformFmt<CR>
 
+autocmd FileType rust nmap <buffer> <LEADER>b :Neoformat<CR>
+autocmd FileType rust setlocal formatprg=rustfmt\ --edition\ 2021
+
 let g:neoformat_try_formatprg = 1
 
 " Security concerns and useless anyway
