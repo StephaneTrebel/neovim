@@ -308,8 +308,9 @@ set incsearch
 set showmatch
 set hlsearch
 
-nnoremap <tab> %
-vnoremap <tab> %
+" Not sure these are meant for :s
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 " Long lines handling
 set wrap
