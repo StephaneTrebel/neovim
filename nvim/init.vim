@@ -90,6 +90,9 @@ Plugin 'Shougo/vimproc.vim'
 " Easy HTML writing
 Plugin 'mattn/emmet-vim'
 
+" Emoji abbrev
+Plugin 'https://gitlab.com/gi1242/vim-emoji-ab.git'
+
 call vundle#end()
 filetype plugin indent on
 
@@ -495,3 +498,10 @@ let g:user_emmet_settings = {
     \      'extends' : 'jsx',
     \  },
   \}
+
+" Enable vim-emoji-ab
+" /!\ Additionnal steps needed, see: https://gitlab.com/gi1242/vim-emoji-ab
+runtime macros/emoji-ab.vim
+
+" Explain Rust errors
+autocmd FileType rust nnoremap <LEADER>e :call CocCommand('rust-analyzer.explainError')<CR>
