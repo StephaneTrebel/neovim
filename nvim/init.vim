@@ -490,9 +490,11 @@ function! MergeKeepRight()
 	let @/ = lastsearch
 endfunction
 
-nnoremap <LEADER>a :<C-U>call MergeKeepLeft()<CR>
-nnoremap <LEADER>u :<C-U>call MergeKeepBoth()<CR>
-nnoremap <LEADER>i :<C-U>call MergeKeepRight()<CR>
+if &diff
+	nnoremap <LEADER>a :<C-U>call MergeKeepLeft()<CR>
+	nnoremap <LEADER>u :<C-U>call MergeKeepBoth()<CR>
+	nnoremap <LEADER>i :<C-U>call MergeKeepRight()<CR>
+endif
 
 " vim-emmet configuration
 let g:user_emmet_leader_key='<Tab>'
