@@ -90,6 +90,9 @@ Plugin 'Shougo/vimproc.vim'
 " Easy HTML writing
 Plugin 'mattn/emmet-vim'
 
+" Increment/Decrement in Visual Block mode
+Plugin 'vim-scripts/VisIncr'
+
 " Emoji abbrev
 Plugin 'https://gitlab.com/gi1242/vim-emoji-ab.git'
 
