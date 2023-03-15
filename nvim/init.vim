@@ -1,103 +1,107 @@
 set nocompatible
 filetype off
 
-let vundle_path='~/.config/nvim/bundle'
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#begin(vundle_path)
+call plug#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
 " Typescript syntax
-Plugin 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim'
 " jsx/tsx syntax
-Plugin 'peitalin/vim-jsx-typescript'
+Plug 'peitalin/vim-jsx-typescript'
 
 " Git Integration
-Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
 " Advanced Vim Targets (/!\ Will override some basic ones)
-Plugin 'wellle/targets.vim'
+Plug 'wellle/targets.vim'
 
 " Vim Session handling
-Plugin 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
 
 " NERDTree
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdcommenter'
 
 " .editorconfig support
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'editorconfig/editorconfig-vim'
 
 " Indent guide
-Plugin 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Region Expansion
-Plugin 'terryma/vim-expand-region'
+Plug 'terryma/vim-expand-region'
 
 " Surrounding plugin (to add quotes/parens/brackets around stuff)
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " Best status bar ever
-Plugin 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 
 " Conquer of Code (Completion and LSP support)
-Plugin 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim'
 
 " Go
-Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go'
 
 " Ack support
 " Beware ! git.fsck might not like this plugin. Use manual install if needed:
 " git clone --config transfer.fsckobjects=false https://github.com/mileszs/ack.vim.git ~/.vim/bundle/ack.vim
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim'
 
 " Better substitution: use S instead of s and never look back !
-Plugin 'tpope/vim-abolish'
+Plug 'tpope/vim-abolish'
 
 " Easy motion
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 
 " Code formatting
-Plugin 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat'
 
 " Javascript syntax highlighting
-Plugin 'pangloss/vim-javascript'
-Plugin 'othree/jsdoc-syntax.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'othree/jsdoc-syntax.vim'
 
 " PlantUML support
-Plugin 'aklt/plantuml-syntax'
+Plug 'aklt/plantuml-syntax'
 let g:plantuml_set_makeprg = 0
 
 " Notes plugin
-Plugin 'xolox/vim-notes'
-Plugin 'xolox/vim-misc'
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
 let g:notes_directories = ['~/Notes']
+let g:notes_conceal_italic = 0
+let g:notes_conceal_bold = 0
 
 " Vimdeck support (see https://github.com/tybenz/vimdeck)
-Plugin 'inkarkat/vim-SyntaxRange'
-Plugin 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-SyntaxRange'
+Plug 'inkarkat/vim-ingo-library'
 
 " Better swap file handling
-Plugin 'gioele/vim-autoswap'
+Plug 'gioele/vim-autoswap'
 
 " Hashicorp Terraform syntax support
-Plugin 'hashivim/vim-terraform'
+Plug 'hashivim/vim-terraform'
 
 " Async library for Vim (not required on Vim8 but required on Neovim ?)
-Plugin 'Shougo/vimproc.vim'
+Plug 'Shougo/vimproc.vim'
 
 " Easy HTML writing
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 
 " Increment/Decrement in Visual Block mode
-Plugin 'vim-scripts/VisIncr'
+Plug 'vim-scripts/VisIncr'
 
 " Emoji abbrev
-Plugin 'https://gitlab.com/gi1242/vim-emoji-ab.git'
+Plug 'https://gitlab.com/gi1242/vim-emoji-ab.git'
 
-call vundle#end()
-filetype plugin indent on
+" AI is Love, AI is Life
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+Plug 'dpayne/CodeGPT.nvim'
+
+call plug#end()
 
 " CoC config
 nmap <silent> gi <Plug>(coc-codeaction-cursor)
@@ -437,8 +441,6 @@ if executable("rg")
   set grepprg=rg\ --vimgrep\ --smart-case\ --hidden
   set grepformat=%f:%l:%c:%m
 endif
-
-syntax enable
 
 " Nvim only: create a dynamic split to view RegEx in real time
 set inccommand=nosplit
