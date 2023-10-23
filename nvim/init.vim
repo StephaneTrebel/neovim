@@ -40,7 +40,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 
 " Conquer of Code (Completion and LSP support)
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
 
 " Go
 Plug 'fatih/vim-go'
