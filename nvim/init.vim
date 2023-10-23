@@ -67,13 +67,6 @@ Plug 'othree/jsdoc-syntax.vim'
 Plug 'aklt/plantuml-syntax'
 let g:plantuml_set_makeprg = 0
 
-" Notes plugin
-Plug 'xolox/vim-notes'
-Plug 'xolox/vim-misc'
-let g:notes_directories = ['~/Notes']
-let g:notes_conceal_italic = 0
-let g:notes_conceal_bold = 0
-
 " Vimdeck support (see https://github.com/tybenz/vimdeck)
 Plug 'inkarkat/vim-SyntaxRange'
 Plug 'inkarkat/vim-ingo-library'
