@@ -87,6 +87,8 @@ Plug 'mattn/emmet-vim'
 Plug 'vim-scripts/VisIncr'
 
 " Emoji abbrev
+" Ctrl-X Ctrl-O to trigger autocompletion
+" Emojis can be inferred (":)" becomes 😄, ":star_struck:" becomes 🤩)
 Plug 'https://gitlab.com/gi1242/vim-emoji-ab.git'
 
 " AI is Love, AI is Life
@@ -509,7 +511,7 @@ let g:user_emmet_settings = {
 " Enable vim-emoji-ab
 " /!\ Additionnal steps needed, see: https://gitlab.com/gi1242/vim-emoji-ab
 runtime macros/emoji-ab.vim
-au FileType markdown,asciidoc runtime macros/emoji-ab.vim
+au FileType markdown,asciidoc,html runtime macros/emoji-ab.vim
 
 " Explain Rust errors
 autocmd FileType rust nnoremap <LEADER>e :call CocCommand('rust-analyzer.explainError')<CR>
