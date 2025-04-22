@@ -10,6 +10,8 @@ Plug 'peitalin/vim-jsx-typescript'
 
 " Git Integration
 Plug 'tpope/vim-fugitive'
+" Fugitive Github plugin
+Plug 'tpope/vim-rhubarb'
 
 " Advanced Vim Targets (/!\ Will override some basic ones)
 Plug 'wellle/targets.vim'
@@ -38,7 +40,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 
 " Conquer of Code (Completion and LSP support)
-Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': 'yarn install --frozen-lockfile' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Go
 Plug 'fatih/vim-go'
@@ -84,17 +86,26 @@ Plug 'mattn/emmet-vim'
 " Increment/Decrement in Visual Block mode
 Plug 'vim-scripts/VisIncr'
 
-" Emoji abbrev
-" Ctrl-X Ctrl-O to trigger autocompletion
-" Emojis can be inferred (":)" becomes 😄, ":star_struck:" becomes 🤩)
-Plug 'https://gitlab.com/gi1242/vim-emoji-ab.git'
+" Undotree visualizer
+Plug 'vim-scripts/undotree.vim'
 
-" AI is Love, AI is Life
-Plug 'nvim-lua/plenary.nvim'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'dpayne/CodeGPT.nvim'
+" Best language tool checker
+Plug 'rhysd/vim-grammarous'
+" LanguageTool v6.x does not support --api anymore, breaking most LT-based
+" plugins :(
+let g:grammarous#jar_url = 'https://www.languagetool.org/download/LanguageTool-5.9.zip'
+let g:grammarous#use_vim_spelllang = 1
+
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
+Plug 'cordx56/rustowl'
+
+Plug 'sphamba/smear-cursor.nvim'
 
 call plug#end()
+
+
+lua require('smear_cursor').enabled = true
 
 " CoC config
 nmap <silent> gi <Plug>(coc-codeaction-cursor)
@@ -104,7 +115,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
 nmap <silent> gn <Plug>(coc-rename)
-nmap <silent> gf <Plug>(coc-refactor)
+" Conflicts with go-to-file-under-the-cursor
+" nmap <silent> gf <Plug>(coc-refactor)
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -195,9 +207,6 @@ set rtp+=~/.fzf
 " Markdown support
 " Treat *.md files as markdown syntax (default is modula2)
 let g:markdown_fenced_languages = ['html', 'javascript', 'bash=sh']
-" Enable spell checking
-autocmd FileType markdown setlocal spell spelllang=en
-autocmd FileType typescript setlocal spell spelllang=en
 " Remove wrapping for markdown (markdown interperters do it automatically for
 " display anyway
 autocmd FileType markdown setlocal tw=0
@@ -217,13 +226,17 @@ autocmd FileType json nmap <buffer> <LEADER>b :Neoformat<CR>
 autocmd FileType json setlocal formatprg=prettier\ --parser\ json\ --stdin-filepath\ @%n
 
 autocmd FileType typescript* nmap <buffer> <LEADER>b :Neoformat<CR>
-autocmd FileType typescript* setlocal formatprg=prettier\ --parser\ typescript\ --stdin-filepath\ @%
+autocmd FileType typescript* setlocal formatprg=prettier\ --stdin-filepath\ @%
 
 autocmd FileType html nmap <buffer> <LEADER>b :Neoformat<CR>
-autocmd FileType html setlocal formatprg=npx\ html-beautify\ -A\ 'force-aligned'\ -n
+" autocmd FileType html setlocal formatprg=npx\ html-beautify\ -A\ 'force-aligned'\ -n
+autocmd FileType html setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
 
 autocmd FileType svg nmap <buffer> <LEADER>b :Neoformat<CR>
 autocmd FileType svg setlocal formatprg=prettier\ --parser\ html\ --stdin-filepath\ @%
+
+autocmd FileType css nmap <buffer> <LEADER>b :Neoformat<CR>
+autocmd FileType css setlocal formatprg=prettier\ --parser\ css\ --stdin-filepath\ @%
 
 autocmd FileType scss nmap <buffer> <LEADER>b :Neoformat<CR>
 autocmd FileType scss setlocal formatprg=prettier\ --parser\ css\ --stdin-filepath\ @%
@@ -243,6 +256,8 @@ autocmd FileType python setlocal formatprg=black\ @%
 
 
 let g:neoformat_try_formatprg = 1
+let g:neoformat_enabled_typescript = ['prettier']
+let g:neoformat_enabled_typescriptreact = ['prettier']
 
 " Security concerns and useless anyway
 set modelines=0
@@ -270,8 +285,8 @@ nnoremap <F3> :tabn<CR>
 
 " Indent setup
 set tabstop=2
-set softtabstop=0
-set noexpandtab
+set softtabstop=2
+set expandtab
 set shiftwidth=2
 set smarttab
 let delimitMate_expand_cr = 1
@@ -289,7 +304,7 @@ set showmode
 set showcmd
 set hidden
 set visualbell
-set cursorline
+" set cursorline
 set ttyfast
 set ruler
 set backspace=indent,eol,start
@@ -330,7 +345,7 @@ set colorcolumn=85
 
 " Colorscheme
 set t_Co=256
-colorscheme inkpot
+colorscheme catppuccin-mocha
 
 " Display trailing spaces and other stuff
 set listchars=tab:\ \ ,trail:~,extends:>,precedes:<,nbsp:⎵
@@ -406,9 +421,6 @@ nmap s <Plug>(easymotion-overwin-f2)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
-
-" Toggle paste mode. Useful when pasting in Windows environnements
-set pastetoggle=<F4>
 
 " Hide all statusline (Useful for Vimdeck presentations)
 let s:hidden_all = 0
@@ -506,10 +518,6 @@ let g:user_emmet_settings = {
     \  },
   \}
 
-" Enable vim-emoji-ab
-" /!\ Additionnal steps needed, see: https://gitlab.com/gi1242/vim-emoji-ab
-runtime macros/emoji-ab.vim
-au FileType markdown,asciidoc,html runtime macros/emoji-ab.vim
-
 " Explain Rust errors
 autocmd FileType rust nnoremap <LEADER>e :call CocCommand('rust-analyzer.explainError')<CR>
+iabbrev imgr img.r-stretch<TAB>,

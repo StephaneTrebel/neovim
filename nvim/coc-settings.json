@@ -1,10 +1,4 @@
 {
-  "markdownlint.config": {
-    "line-length": false
-  },
-  "tsserver.tsdk": "/home/stephane/.nvm/versions/node/v18.12.1/lib/node_modules/typescript/lib/",
-  "tsserver.npm": "/home/stephane/.nvm/versions/node/v18.12.1/bin/npm",
-  "tsserver.ignoreLocalTsserver": true,
   "languageserver": {
     "go": {
       "command": "gopls",
@@ -12,5 +6,12 @@
       "trace.server": "verbose",
       "filetypes": ["go"]
     }
-  }
+  },
+  "tabnine.disable_filetypes": ["markdown", "asciidoc"],
+  "coc.source.emoji.filetypes": ["markdown", "asciidoc", "html"],
+  "coc.source.emoji.triggerCharacters": [";"],
+  "rust-analyzer.check.command": "clippy",
+  "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
+  "ltex.enabled": ["markdown"],
+  "ltex.language": "fr"
 }
