@@ -98,9 +98,9 @@ let g:grammarous#use_vim_spelllang = 1
 
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
-Plug 'cordx56/rustowl'
-
 Plug 'sphamba/smear-cursor.nvim'
+
+Plug 'ellisonleao/gruvbox.nvim'
 
 call plug#end()
 
@@ -345,7 +345,8 @@ set colorcolumn=85
 
 " Colorscheme
 set t_Co=256
-colorscheme catppuccin-mocha
+set background=dark " or light if you want light mode
+colorscheme gruvbox
 
 " Display trailing spaces and other stuff
 set listchars=tab:\ \ ,trail:~,extends:>,precedes:<,nbsp:⎵
