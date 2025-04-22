@@ -3,8 +3,6 @@ filetype off
 
 call plug#begin()
 
-Plug 'VundleVim/Vundle.vim'
-
 " Typescript syntax
 Plug 'leafgarland/typescript-vim'
 " jsx/tsx syntax
