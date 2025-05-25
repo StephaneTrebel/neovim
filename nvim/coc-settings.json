@@ -7,7 +7,6 @@
       "filetypes": ["go"]
     }
   },
-  "tabnine.disable_filetypes": ["markdown", "asciidoc"],
   "coc.source.emoji.filetypes": ["markdown", "asciidoc", "html"],
   "coc.source.emoji.triggerCharacters": [";"],
   "rust-analyzer.check.command": "clippy",
