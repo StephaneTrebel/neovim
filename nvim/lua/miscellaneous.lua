@@ -99,9 +99,9 @@ vim.opt.listchars="tab:  ,trail:~,extends:>,precedes:<,nbsp:⎵"
 vim.opt.list=true
 
 vim.opt.backup=true
-vim.opt.backupdir="~/.vim/backup"
-vim.opt.directory="~/.vim/swap"
-vim.opt.undodir="~/.vim/undo"
+vim.opt.backupdir=vim.fn.expand('~').."/.vim/backup"
+vim.opt.directory=vim.fn.expand('~').."/.vim/swap"
+vim.opt.undodir=vim.fn.expand('~').."/.vim/undo"
 vim.opt.writebackup=true
 vim.opt.backupcopy="yes"
 
