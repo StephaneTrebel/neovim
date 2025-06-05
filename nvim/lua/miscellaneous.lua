@@ -27,17 +27,17 @@ vim.api.nvim_create_autocmd({"FileType"}, {
 
 vim.api.nvim_create_autocmd({"BufNewFile","BufFilePre","BufRead"}, {
 	pattern = "*.dockerfile",
-	command = "vim.opt.filetype=dockerfile"
+	callback = function () vim.opt.filetype="dockerfile" end
 })
 
 vim.api.nvim_create_autocmd({"BufNewFile","BufFilePre","BufRead"}, {
 	pattern = "*.bashrc",
-	command = "vim.opt.filetype=sh"
+	callback = function () vim.opt.filetype="sh" end
 })
 
 vim.api.nvim_create_autocmd({"BufNewFile","BufFilePre","BufRead"}, {
 	pattern = "*.env*",
-	command = "vim.opt.filetype=sh"
+	callback = function () vim.opt.filetype="sh" end
 })
 
 -- Tab movement
