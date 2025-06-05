@@ -21,8 +21,8 @@ vim.g.markdown_fenced_languages = {'html', 'javascript', 'bash=sh'}
 -- Remove wrapping for markdown (markdown interperters do it automatically for
 -- display anyway
 vim.api.nvim_create_autocmd({"FileType"}, {
-	pattern = "markdown",
-	command = "vim.b.tw='0'"
+	pattern = "*markdown*",
+	callback = function () vim.b.tw="0" end
 })
 
 vim.api.nvim_create_autocmd({"BufNewFile","BufFilePre","BufRead"}, {
