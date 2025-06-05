@@ -522,3 +522,5 @@ let g:user_emmet_settings = {
 " Explain Rust errors
 autocmd FileType rust nnoremap <LEADER>e :call CocCommand('rust-analyzer.explainError')<CR>
 iabbrev imgr img.r-stretch<TAB>,
+
+set shellcmdflag=-ic
