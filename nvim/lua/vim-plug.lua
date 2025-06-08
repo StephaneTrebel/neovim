@@ -113,5 +113,3 @@ require('smear_cursor').enabled = true
 -- Color scheme loaded after plugins
 -- Prepended with !silent to avoid showing errors when not installed
 vim.cmd('silent! colorscheme gruvbox')
-
-
