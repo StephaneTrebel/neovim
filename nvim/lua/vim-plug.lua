@@ -102,6 +102,10 @@ Plug('sphamba/smear-cursor.nvim')
 
 Plug('ellisonleao/gruvbox.nvim')
 
+Plug('MunifTanjim/nui.nvim')
+Plug('m4xshen/hardtime.nvim')
+Plug('rcarriga/nvim-notify')
+
 vim.call('plug#end')
 
 require('smear_cursor').enabled = true
@@ -109,4 +113,5 @@ require('smear_cursor').enabled = true
 -- Color scheme loaded after plugins
 -- Prepended with !silent to avoid showing errors when not installed
 vim.cmd('silent! colorscheme gruvbox')
+
 
