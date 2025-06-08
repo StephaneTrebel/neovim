@@ -158,3 +158,7 @@ vim.api.nvim_create_autocmd({"FileType"}, {
 })
 
 vim.cmd("iabbrev imgr img.r-stretch<TAB>,")
+
+-- Show Indentation visual guides by default (vim-indent-guides plugin)
+vim.g.indent_guides_enable_on_vim_startup=1
+vim.g.indent_guides_default_mapping=0
