@@ -28,7 +28,7 @@ Plug('scrooloose/nerdcommenter')
 Plug('editorconfig/editorconfig-vim')
 
 -- Indent guide
-Plug('nathanaelkane/vim-indent-guides')
+Plug('preservim/vim-indent-guides')
 
 -- Region Expansion
 Plug('terryma/vim-expand-region')
