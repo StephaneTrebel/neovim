@@ -106,6 +106,8 @@ Plug('MunifTanjim/nui.nvim')
 Plug('m4xshen/hardtime.nvim')
 Plug('rcarriga/nvim-notify')
 
+Plug('HiPhish/jinja.vim')
+
 vim.call('plug#end')
 
 require('smear_cursor').enabled = true
