@@ -25,11 +25,11 @@ vim.api.nvim_create_autocmd({"FileType"}, {
 })
 
 vim.api.nvim_create_autocmd({"FileType"}, {
-	pattern = "typescript*",
+	pattern = "typescript",
 	callback = function () vim.keymap.set('n', '<LEADER>b', ':Neoformat<CR>') end
 })
 vim.api.nvim_create_autocmd({"FileType"}, {
-	pattern = "typescript*",
+	pattern = "typescript",
 	callback = function () vim.b.formatprg='prettier --stdin-filepath @%' end
 })
 
