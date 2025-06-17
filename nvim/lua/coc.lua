@@ -73,7 +73,7 @@ vim.api.nvim_create_autocmd("CursorHold", {
 
 
 -- Symbol renaming
-keyset("n", "<leader>rn", "<Plug>(coc-rename)", {silent = true})
+keyset("n", "gn", "<Plug>(coc-rename)", {silent = true})
 
 
 -- Formatting selected code
@@ -96,7 +96,7 @@ keyset("x", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
 keyset("n", "<leader>a", "<Plug>(coc-codeaction-selected)", opts)
 
 -- Remap keys for apply code actions at the cursor position.
-keyset("n", "<leader>ac", "<Plug>(coc-codeaction-cursor)", opts)
+keyset("n", "gi", "<Plug>(coc-codeaction-cursor)", opts)
 -- Remap keys for apply source code actions for current file.
 keyset("n", "<leader>as", "<Plug>(coc-codeaction-source)", opts)
 -- Apply the most preferred quickfix action on the current line.
