@@ -1,9 +1,12 @@
 require("vim-plug")
 
+require("vim_cmp")
 require("coc")
-require("enable_hardtime")
+require("hardtime")
 require("leader")
 require("merge_tool")
 require("miscellaneous")
 require("neoformat")
 require("nerdtree")
+require("setup_obsidian")
+--require("which-key")

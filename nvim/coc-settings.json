@@ -7,10 +7,15 @@
       "filetypes": ["go"]
     }
   },
-  "coc.source.emoji.filetypes": ["markdown", "asciidoc", "html"],
+  "coc.source.emoji.filetypes": ["markdown", "asciidoc", "html", "conf"],
   "coc.source.emoji.triggerCharacters": [";"],
   "rust-analyzer.check.command": "clippy",
   "workspace.ignoredFolders": ["$HOME", "$HOME/.cargo/**", "$HOME/.rustup/**"],
-  "ltex.enabled": ["markdown"],
-  "ltex.language": "fr"
+  "ltex.enabled": ["markdown", "asciidoc"],
+  "ltex.language": "fr",
+  "ltex.configurationTarget": {
+    "dictionary": "user",
+    "disabledRules": "user",
+    "hiddenFalsePositives": "user"
+  }
 }

@@ -1,5 +1,11 @@
 vim.keymap.set('n', '<LEADER>b', ':Neoformat<CR>')
 
+-- Avoid having clang-format as the default formatter in case on syntax error
+vim.g.neoformat_enabled_cpp = { "uncrustify" }
+vim.g.neoformat_enabled_javascript = { "prettier" }
+vim.g.neoformat_enabled_typescript = { "prettier" }
+vim.g.neoformat_enabled_typescriptreact = { "prettier" }
+
 -- Rely on formatprg for format settings
 vim.g.neoformat_try_formatprg = 1
 
@@ -92,7 +98,8 @@ vim.api.nvim_create_autocmd({"FileType"}, {
 -- (or rather rustfmt should do that automatically…)
 vim.api.nvim_create_autocmd({"FileType"}, {
     pattern = "rust",
-    callback = function() vim.opt_local.formatprg = 'rustfmt --edition 2021' end
+    -- callback = function() vim.opt_local.formatprg = 'rustfmt --edition 2021' end
+    callback = function() vim.opt_local.formatprg = 'rustfmt --edition 2024' end
 })
 
 -- Don't forget to install black (`pip install black`)
